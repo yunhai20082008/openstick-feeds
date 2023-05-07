@@ -17,7 +17,7 @@ define Package/$(PKG_NAME)
 	SECTION:=Utilities
 	CATEGORY:=Utilities
 	TITLE:=Resize Rootfs In Emmc or Sdcard (only support ext4 fs)
-	DEPENDS:=+resize2fs +mount-utils +e2fsprogs
+	DEPENDS:=+resize2fs +mount-utils +e2fsprogs +tunefs
 endef
 
 define Build/Configure
