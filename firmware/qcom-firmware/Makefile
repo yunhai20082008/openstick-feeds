@@ -55,6 +55,9 @@ define Build/Compile
 	mkdir $(PKG_BUILD_DIR)/openstick-w001
 	mcopy -i $(PKG_BUILD_DIR)/openstick-w001-modem.bin -p -m -v \
 		::image/mba.mbn ::image/modem.* ::image/wcnss.* $(PKG_BUILD_DIR)/openstick-w001
+	mkdir $(PKG_BUILD_DIR)/openstick-mf32
+	mcopy -i $(PKG_BUILD_DIR)/openstick-mf32-modem.bin -p -m -v \
+		::image/mba.mbn ::image/modem.* ::image/wcnss.* $(PKG_BUILD_DIR)/openstick-mf32
 	mkdir $(PKG_BUILD_DIR)/wt88047
 	mcopy -i $(PKG_BUILD_DIR)/wt88047-modem.bin -p -m -v \
 		::image/mba.mbn ::image/modem.* ::image/wcnss.* $(PKG_BUILD_DIR)/wt88047
@@ -106,6 +109,11 @@ endef
 define Package/qcom-msm8916-openstick-w001-wcnss-firmware
   $(Package/qcom-firmware-default)
   TITLE:=Openstick W001 WIFI & Bluetooth firmware
+endef
+
+define Package/qcom-msm8916-openstick-mf32-wcnss-firmware
+  $(Package/qcom-firmware-default)
+  TITLE:=Openstick MF32 WIFI & Bluetooth firmware
 endef
 
 define Package/qcom-msm8916-wt8x047-wcnss-firmware
@@ -163,6 +171,11 @@ define Package/qcom-msm8916-wcnss-openstick-w001-nv
   TITLE:=Qualcomm msm8916 WIFI nv data for Handsome Openstick W001
 endef
 
+define Package/qcom-msm8916-wcnss-openstick-mf32-nv
+  $(Package/qcom-firmware-default)
+  TITLE:=Qualcomm msm8916 WIFI nv data for Handsome Openstick MF32
+endef
+
 define Package/qcom-apq8016-modem-firmware
   $(Package/qcom-firmware-default)
   TITLE:=Qualcomm apq8016 modem firmware
@@ -216,6 +229,11 @@ endef
 define Package/qcom-msm8916-modem-openstick-w001-firmware
   $(Package/qcom-firmware-default)
   TITLE:=Qualcomm msm8916 modem firmware for Handsome Openstick W001
+endef
+
+define Package/qcom-msm8916-modem-openstick-mf32-firmware
+  $(Package/qcom-firmware-default)
+  TITLE:=Qualcomm msm8916 modem firmware for Handsome Openstick MF32
 endef
 
 define Package/qcom-apq8016-wcnss-firmware/install
@@ -278,6 +296,13 @@ define Package/qcom-msm8916-openstick-w001-wcnss-firmware/install
 	$(INSTALL_DIR) $(1)/lib/firmware
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/openstick-w001/wcnss.* \
+		$(1)/lib/firmware
+endef
+
+define Package/qcom-msm8916-openstick-mf32-wcnss-firmware/install
+	$(INSTALL_DIR) $(1)/lib/firmware
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/openstick-mf32/wcnss.* \
 		$(1)/lib/firmware
 endef
 
@@ -355,6 +380,13 @@ define Package/qcom-msm8916-wcnss-openstick-w001-nv/install
 	$(INSTALL_DIR) $(1)/lib/firmware/wlan/prima
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/openstick-w001-nv.bin \
+		$(1)/lib/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+endef
+
+define Package/qcom-msm8916-wcnss-openstick-mf32-nv/install
+	$(INSTALL_DIR) $(1)/lib/firmware/wlan/prima
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/openstick-mf32-nv.bin \
 		$(1)/lib/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 endef
 
@@ -468,6 +500,16 @@ define Package/qcom-msm8916-modem-openstick-w001-firmware/install
 		$(1)/lib/firmware
 endef
 
+define Package/qcom-msm8916-modem-openstick-mf32-firmware/install
+	$(INSTALL_DIR) $(1)/lib/firmware
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/openstick-mf32/mba.mbn \
+		$(1)/lib/firmware
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/openstick-mf32/modem.* \
+		$(1)/lib/firmware
+endef
+
 $(eval $(call BuildPackage,qcom-apq8016-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-ufi001b-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-ufi001c-wcnss-firmware))
@@ -477,6 +519,7 @@ $(eval $(call BuildPackage,qcom-msm8916-openstick-sp970-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-uz801-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-qrzl903-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-w001-wcnss-firmware))
+$(eval $(call BuildPackage,qcom-msm8916-openstick-mf32-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-wt8x047-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-apq8016-wcnss-nv))
 $(eval $(call BuildPackage,qcom-msm8916-wcnss-wt88047-nv))
@@ -488,6 +531,7 @@ $(eval $(call BuildPackage,qcom-msm8916-wcnss-openstick-sp970-nv))
 $(eval $(call BuildPackage,qcom-msm8916-wcnss-openstick-uz801-nv))
 $(eval $(call BuildPackage,qcom-msm8916-wcnss-openstick-qrzl903-nv))
 $(eval $(call BuildPackage,qcom-msm8916-wcnss-openstick-w001-nv))
+$(eval $(call BuildPackage,qcom-msm8916-wcnss-openstick-mf32-nv))
 $(eval $(call BuildPackage,qcom-apq8016-modem-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-modem-wt88047-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-modem-wt86047-firmware))
@@ -499,3 +543,4 @@ $(eval $(call BuildPackage,qcom-msm8916-modem-openstick-sp970-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-modem-openstick-uz801-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-modem-openstick-qrzl903-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-modem-openstick-w001-firmware))
+$(eval $(call BuildPackage,qcom-msm8916-modem-openstick-mf32-firmware))
