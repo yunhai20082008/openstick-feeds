@@ -550,7 +550,7 @@ define Package/qcom-msm8916-modem-openstick-mf601-firmware/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/openstick-mf601/modem.* \
 		$(1)/lib/firmware
-end601
+endef
 
 $(eval $(call BuildPackage,qcom-apq8016-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-openstick-ufi001b-wcnss-firmware))
