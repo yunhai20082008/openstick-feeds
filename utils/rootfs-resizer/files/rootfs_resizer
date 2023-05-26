@@ -14,4 +14,4 @@ mount -o rw,remount /
 resize2fs ${rootpart} > /dev/null
 
 opkg remove rootfs-resizer
-reboot
+#reboot
