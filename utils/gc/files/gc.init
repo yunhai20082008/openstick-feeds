@@ -66,6 +66,8 @@ start_service() {
 }
 
 stop_service() {
+	/etc/init.d/adbd shutdown > /dev/null
+	sleep 1
 	gc -c
 }
 
